@@ -10,8 +10,8 @@ import (
 
 var (
 	Version   = "1.0.0"
-	Commit    = ""
-	BuildTime = "2018-10-09"
+	Author    = "yekai"
+	BuildTime = "2018-11-27"
 )
 
 type ServerConfig struct {
@@ -20,13 +20,17 @@ type ServerConfig struct {
 }
 
 type CommonConfig struct {
-	Port      string
-	LogFormat string
+	Port     string //启动侦听的端口
+	Length   int    // 验证码长度
+	FilePath string //文件路径
 }
 
 type DbConfig struct {
-	Driver  string
-	Connstr string
+	Driver    string
+	Connstr   string
+	Redisstr  string
+	RedisPass string
+	RedisDB   int
 }
 
 func usage() {
@@ -56,9 +60,12 @@ func GetConfig() (config *ServerConfig) {
 
 	if *ver {
 		fmt.Println("Version: ", Version)
-		fmt.Println("Commit: ", Commit)
+		fmt.Println("Commit: ", Author)
 		fmt.Println("BuildTime: ", BuildTime)
 		return nil
+	}
+	if *configFile == "" {
+		*configFile = "etc/finepoints.dev.toml"
 	}
 	// get server config
 	if *configFile != "" {

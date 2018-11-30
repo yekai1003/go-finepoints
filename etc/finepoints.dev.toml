@@ -1,0 +1,12 @@
+[common]
+port = ":8888"
+length = 6
+filepath = "static/photo/"
+[db]
+driver  = "mysql"
+connstr = "root:root@tcp(127.0.0.1:3306)/finepoints?charset=utf8"
+redisstr = "127.0.0.1:6379"
+redispass = ""
+redisdb = 2
+
+
